@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pencatat Keuangan</title>
   <style>
     * {
@@ -15,6 +15,9 @@
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
     }
 
     .center-wrapper {
@@ -23,6 +26,7 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
+      width: 100%;
     }
 
     .container {
@@ -93,8 +97,15 @@
     #main-section {
       width: 100%;
       max-width: 800px;
-      margin: 0 auto;
-      padding-top: 40px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    label {
+      font-weight: bold;
     }
 
     table {
@@ -146,6 +157,21 @@
     }
 
     @media screen and (max-width: 480px) {
+      body {
+        align-items: flex-start;
+        padding: 10px;
+      }
+
+      #main-section {
+        margin: 20px auto;
+        padding: 20px;
+        width: 100%;
+        max-width: 380px;
+        border-radius: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      }
+
       input, select, button {
         font-size: 14px;
         padding: 10px;
@@ -380,10 +406,14 @@
   }
 
   function hapusCatatan(button) {
+  const konfirmasi = confirm("Apakah Anda yakin ingin menghapus catatan ini?");
+  if (konfirmasi) {
     const row = button.parentNode.parentNode;
     row.remove();
     updateTotal();
   }
+}
+
 </script>
 
 </body>
