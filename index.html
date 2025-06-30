@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pencatat Keuangan</title>
   <style>
     * {
@@ -26,6 +27,7 @@
       border-radius: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       width: 380px;
+      max-width: 95%;
     }
 
     .hidden {
@@ -136,6 +138,50 @@
       margin-top: 15px;
       font-weight: bold;
       font-size: 16px;
+    }
+
+    @media screen and (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+
+      input, select, button {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+        width: 100%;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        font-size: 14px;
+      }
+
+      td::before {
+        content: attr(data-label);
+        font-weight: bold;
+      }
+
+      .actions {
+        justify-content: center;
+        gap: 10px;
+      }
     }
   </style>
 </head>
@@ -297,16 +343,15 @@
       document.querySelector("button[onclick='tambahCatatan()']").innerText = "Tambah Catatan";
     } else {
       const row = table.insertRow();
-      row.insertCell(0).innerText = tanggal;
-      row.insertCell(1).innerText = deskripsi;
-      row.insertCell(2).innerText = "Rp " + formatRupiah(jumlah);
-      row.insertCell(3).innerText = tipe === "pengeluaran" ? "Pengeluaran" : "Pemasukan";
-      const aksi = row.insertCell(4);
-      aksi.classList.add("actions");
-      aksi.innerHTML = `
-        <button class="edit-btn" onclick="editCatatan(this)">Edit</button>
-        <button class="hapus-btn" onclick="hapusCatatan(this)">Hapus</button>
-      `;
+      row.innerHTML = `
+        <td data-label="Tanggal">${tanggal}</td>
+        <td data-label="Deskripsi">${deskripsi}</td>
+        <td data-label="Jumlah">Rp ${formatRupiah(jumlah)}</td>
+        <td data-label="Tipe">${tipe === "pengeluaran" ? "Pengeluaran" : "Pemasukan"}</td>
+        <td class="actions" data-label="Aksi">
+          <button class="edit-btn" onclick="editCatatan(this)">Edit</button>
+          <button class="hapus-btn" onclick="hapusCatatan(this)">Hapus</button>
+        </td>`;
     }
 
     document.getElementById("tanggal").value = '';
